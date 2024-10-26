@@ -9,14 +9,21 @@ template <class T>
 class BSTNode
 {
 private:
+    struct Node
+    {
+        T value;
+        Node* left;
+        Node* right;
+    };
+    
+    
+public:
     BSTNode<T>* treeMin();
     BSTNode<T>* treeMax();
-    void printPreOrderTraversal() const;
-    void printInOrderTraversal() const;
-    void printPostOrderTraversal() const;
+    void        printPreOrderTraversal() const;
+    void        printInOrderTraversal() const;
+    void        printPostOrderTraversal() const;
 
-public:
-       
 };
 
 #endif

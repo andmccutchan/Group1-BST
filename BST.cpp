@@ -5,7 +5,7 @@ void transplant(BSTNode<T> *oldNode, BSTNode<T> *newNode) {
 
 template <class T>
 bool isEmpty() const {
-
+    return this == nullptr;
 }
 
 template <class T>
@@ -15,7 +15,17 @@ long size() const {
 
 template <class T>
 BSTNode<T>* insert(T value) {
-
+    T x = this;
+    T y = nullptr;
+    while (x != nullptr) {
+        y = x;
+        if (value < x.value) {
+            x = x.left;
+        }
+        else {
+            x = x.right;
+        }
+    }
 }
 
 template <class T>
