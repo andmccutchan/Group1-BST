@@ -1,21 +1,19 @@
-#include <iostream>
-using namespace std;
-
 #ifndef BST_NODE_HPP
 #define BST_NODE_HPP
 
+#include <iostream>
+using namespace std;
+
 template <class T>
-class BSTNode
-{
+class BSTNode {
 private:
-    T value;
+    T data;
     BSTNode<T>* left;
     BSTNode<T>* right;
     
     
 public:
-                BSTNode();                              
-                BSTNode(const T& value);                
+                BSTNode(const T& value);                                            
                 BSTNode(const BSTNode<T>& tree);      
     BSTNode<T>& operator=(const BSTNode<T>& tree); 
                 ~BSTNode();      

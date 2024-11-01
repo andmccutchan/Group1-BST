@@ -1,20 +1,15 @@
-#include <iostream>
-
-using namespace std;
-
 #ifndef BST_HPP
 #define BST_HPP
 
+#include <iostream>
+#include "BSTNode.hpp"
+using namespace std;
+
 template <class T>
-class BST
-{
+class BST {
 private:
-    struct Node
-    {
-        T value;
-        Node* left;
-        Node* right;
-    };
+    BSTNode<T>* root = nullptr;
+    BSTNode<T>* parent = nullptr;
 
 public:
     void        transplant(BSTNode<T> *oldNode, BSTNode<T> *newNode);
@@ -29,5 +24,7 @@ public:
     void        printInOrderTraversal() const;
     void        printPostOrderTraversal() const;  
 };
+
+#include "BST.cpp"
 
 #endif

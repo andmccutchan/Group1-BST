@@ -3,8 +3,8 @@
 using namespace std;
 
 template<class T>
-BSTNode<T>::BSTNode() {
-    data = T();
+BSTNode<T>::BSTNode(const T& value) {
+    data = value;
     left = nullptr;
     right = nullptr;    
 }
@@ -56,47 +56,33 @@ BSTNode<T>& BSTNode<T>::operator=(const BSTNode<T>& tree) {
 
 template <class T>
 BSTNode<T>::~BSTNode() {
-    if (left) {
-        delete left;
-        left = nullptr; 
-    }
-    if (right) {
-        delete right;
-        right = nullptr; 
-    }
+    delete left;
+    delete right;
 }
 
 
 
 template <class T>
 BSTNode<T>* BSTNode<T>::treeMin() {
-    if (this == nullptr) {
-        return nullptr;
+        BSTNode<T>* current = this;
+        while (current && current->left != nullptr) {
+            current = current->left;
+        }
+        return current;
     }
-
-    BSTNode<T>* currNode = this;
-    while (currNode->left) {
-        currNode = currNode->left;
-    }
-    return currNode;
-}
 
 template <class T>
 BSTNode<T>* BSTNode<T>::treeMax() {
-    if (this == nullptr) {
-        return nullptr;
+    BSTNode<T>* current = this;
+    while (current && current->right != nullptr) {
+        current = current->right;
     }
-
-    BSTNode<T>* currNode = this;
-    while (currNode->right) {
-        currNode = currNode->right;
-    }
-    return currNode;
+    return current;
 }
 
 template <class T>
 void BSTNode<T>::printPreOrderTraversal() const {
-    cout << value << " ";
+    cout << data << " ";
     if (left) {
         left->printPreOrderTraversal();
     }
@@ -108,21 +94,21 @@ void BSTNode<T>::printPreOrderTraversal() const {
 template <class T>
 void BSTNode<T>::printInOrderTraversal() const {
     if (left) {
-        left->printPreOrderTraversal();
+        left->printInOrderTraversal();
     }
-    cout << value << " ";
+    cout << data << " ";
     if (right) {
-        right->printPreOrderTraversal();
+        right->printInOrderTraversal();
     }
 }
 
 template <class T>
 void BSTNode<T>::printPostOrderTraversal() const {
     if (left) {
-        left->printPreOrderTraversal();
+        left->printPostOrderTraversal();
     }
     if (right) {
-        right->printPreOrderTraversal();
+        right->printPostOrderTraversal();
     }  
-    cout << value << " ";
+    cout << data << " ";
 }
