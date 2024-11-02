@@ -9,8 +9,6 @@ template <class T>
 class BST {
 private:
     BSTNode<T>* root = nullptr;
-    BSTNode<T>* parent = nullptr;
-
 public:
     void        transplant(BSTNode<T> *oldNode, BSTNode<T> *newNode);
     bool        isEmpty() const;

@@ -1,7 +1,7 @@
-mytests: tree mytests.cpp BSTNode.hpp BSTNode.cpp
+mytests: tree mytests.cpp BST.hpp BST.cpp
 	g++ -c mytests.cpp -o mytests.o
-	g++ -o mytests BSTNode.o mytests.o
+	g++ -o mytests BST.o mytests.o
 	./myTests
 
-tree: BSTNode.hpp BSTNode.cpp
-	g++ -c BSTNode.cpp -o BSTNode.o
+tree: BST.hpp BST.cpp
+	g++ -c BST.cpp -o BST.o
