@@ -6,25 +6,21 @@ using namespace std;
 
 template <class T>
 class BSTNode {
-private:
+public:
     T data;
     BSTNode<T>* left;
     BSTNode<T>* right;
-    
-    
-public:
-                BSTNode(const T& value);                                            
-                BSTNode(const BSTNode<T>& tree);      
-    BSTNode<T>& operator=(const BSTNode<T>& tree); 
-                ~BSTNode();      
+
+                BSTNode(const T& value);       
+                BSTNode(const T& value, BSTNode<T>* left, BSTNode<T>* right);                                     
+                BSTNode(const BSTNode<T>& other);      
+    BSTNode<T>& operator=(const BSTNode<T>& other); 
+         
     BSTNode<T>* treeMin();
     BSTNode<T>* treeMax();
     void        printPreOrderTraversal() const;
     void        printInOrderTraversal() const;
     void        printPostOrderTraversal() const;
-
 };
-
-#include "BSTNode.cpp"
 
 #endif

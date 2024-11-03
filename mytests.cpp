@@ -1,24 +1,35 @@
 #include <iostream>
-#include "BST.hpp"
+#include "BST.cpp"
+#include "BSTNode.cpp"
 using namespace std;
 
-void testBST() {
-    BST<int> tree;
-
-    // Insert elements into the BST
-    std::cout << "Inserting elements: 50, 30, 70, 20, 40, 60, 80\n";
-    tree.insert(50);
-    tree.insert(30);
-    tree.insert(70);
-    tree.insert(20);
-    tree.insert(40);
-    tree.insert(60);
-    tree.insert(80);
-}
-
+void testBST();
 
 int main(void){
-    
     testBST();
-    return 0;  
+    return 0;
+}
+
+void testBST() {
+    BST<int> bst;
+    cout << "Inserting 7, 5, 18, 1, 4, 9, 12" << endl;
+    bst.insert(7);
+    bst.insert(5);
+    bst.insert(18);
+    bst.insert(1);
+    bst.insert(4);
+    bst.insert(9);
+    bst.insert(12);
+
+    cout << "Print In-order traversal: ";
+    bst.printInOrderTraversal();
+    cout << endl;
+
+    cout << "Min of tree: " << bst.treeMin()->data << endl;
+    cout << "Max of tree: " << bst.treeMax()->data << endl;
+
+    cout << "Searching for 4 in tree: " << bst.search(4)->data << endl;
+
+
+
 }

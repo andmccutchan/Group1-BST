@@ -1,58 +1,35 @@
-#include <iostream>
 #include "BSTNode.hpp"
-using namespace std;
 
-template<class T>
+template <typename T>
 BSTNode<T>::BSTNode(const T& value) {
     data = value;
     left = nullptr;
-    right = nullptr;    
+    right = nullptr;
 }
 
-template <class T>
-BSTNode<T>::BSTNode(const BSTNode<T> &tree) {
-    data = tree.data;
-
-    if (tree.left) {
-        left = new BSTNode<T>(*(tree.left)); 
-    } else {
-        left = nullptr; 
-    }
-
-    if (tree.right) {
-        right = new BSTNode<T>(*(tree.right)); 
-    } else {
-        right = nullptr; 
-    }
+template <typename T>
+BSTNode<T>::BSTNode(const T& value, BSTNode<T>* left, BSTNode<T>* right) {
+    data = value;
+    left = left;
+    right = right;
 }
 
-template <class T>
-BSTNode<T>& BSTNode<T>::operator=(const BSTNode<T>& tree) {
-    if (this != &tree) { 
-        delete left;
-        delete right;
-        left = nullptr; 
-        right = nullptr; 
+template <typename T>
+BSTNode<T>::BSTNode(const BSTNode<T>& other) {
+    data = other.value;
+    left = other.left;
+    right = other.right;
+}
 
-        data = tree.data;
-
-        if (tree.left) {
-            left = new BSTNode<T>(*(tree.left)); 
-        }
-
-        if (tree.right) {
-            right = new BSTNode<T>(*(tree.right)); 
-        }
+template <typename T>
+BSTNode<T>& BSTNode<T>::operator=(const BSTNode<T>& other) {
+    if (this != &other) {
+        data = other.value;
+        left = other.left;
+        right = other.right;
     }
     return *this;
 }
-
-template <class T>
-BSTNode<T>::~BSTNode() {
-    delete left;
-    delete right;
-}
-
 
 
 template <class T>

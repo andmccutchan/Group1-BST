@@ -1,23 +1,80 @@
 #include "BST.hpp"
-#include "BSTNode.hpp"
+
+//================================================
+// DEFAULT CONSTRUCTOR
+//================================================
+template <typename T>
+BST<T>::BST() {
+    root = nullptr;
+    nodeCount = 0;
+}
+
+
+//================================================
+// COPY CONSTRUCTOR
+//================================================
+template <typename T>
+BST<T>::BST(const BST<T>& other) {
+    if (other.root != nullptr) {
+        root = copySubTree(other.root); 
+        nodeCount = other.nodeCount;
+    }
+}
+
+
+//================================================
+// DESTRUCTOR
+//================================================
+template <typename T>
+BST<T>::~BST() {
+    deleteSubTree(root);
+    root = nullptr;
+    nodeCount = 0;
+}
+
+
+//================================================
+// ASSIGNMENT OPERATOR
+//================================================
+template <typename T>
+BST<T>& BST<T>::operator=(const BST<T>& other) {
+    deleteSubTree(root);
+    root = copySubTree(other.root);
+    nodeCount = other.nodeCount;
+    return *this;
+}
 
 //================================================
 // TRANSPLANT
 //================================================
 template <class T>
 void BST<T>::transplant(BSTNode<T> *oldNode, BSTNode<T> *newNode) {
-    if (oldNode->parent == nullptr) {
-        root = newNode; 
+    if (oldNode == root) {
+        root = newNode;
     } 
-    else if (oldNode == oldNode->parent->left) {
-        oldNode->parent->left = newNode;
-    } 
+    BSTNode<T>* parent = nullptr;
+    BSTNode<T>* current = root;
+
+    while (current != nullptr && current != oldNode) {
+        parent = current;
+        if (oldNode->data < current->data) {
+            current = current->left;
+        } 
+        else {
+            current = current->right;
+        }
+    }
+
+    if (oldNode == parent->left) {
+        parent->left = newNode;
+    }
     else {
-        oldNode->parent->right = newNode;
+        parent->right = newNode;
     }
 
     if (newNode != nullptr) {
-        newNode->parent = oldNode->parent; 
+        newNode->left = oldNode->left;
+        newNode->right = oldNode->right;
     }
 }
 
@@ -33,20 +90,8 @@ bool BST<T>::isEmpty() const {
 // SIZE
 //================================================
 template <class T>
-long BST<T>::size() const {
-    if (root == nullptr) {
-        return 0; // If the root is nullptr, the size is 0
-    }
-    
-    long count = 1; 
-    if (root->left != nullptr) {
-        count += size(root->left); 
-    }
-    if (root->right != nullptr) {
-        count += size(root->right);
-    }
-    
-    return count;
+long BST<T>::size() const {  
+    return nodeCount;
 }
 
 //================================================
@@ -73,12 +118,12 @@ BSTNode<T>* BST<T>::insert(T value) {
         }
     }
 
-    if (value < parent->data) {
+    if (value <= parent->data) {
         parent->left = newNode; 
     } else {
         parent->right = newNode;
     }
-
+    nodeCount++;
     return newNode;
 }
 
@@ -87,7 +132,7 @@ BSTNode<T>* BST<T>::insert(T value) {
 //================================================
 template <class T>
 void BST<T>::remove(T value) {
-
+    
 }
 
 //================================================
@@ -108,6 +153,7 @@ BSTNode<T>* BST<T>::search(T value) const {
         }
     }
     return nullptr;
+    
 }
 
 //================================================
@@ -162,4 +208,27 @@ void BST<T>::printPostOrderTraversal() const {
     if (root != nullptr) {
         root->printPostOrderTraversal();
     }
+}
+
+
+template <typename T>
+BSTNode<T>* BST<T>::copySubTree(const BSTNode<T>* node) {
+    if (node == nullptr) return nullptr;
+
+    BSTNode<T>* newNode = new BSTNode<T>(node->data);
+
+    newNode->left = copySubTree(node->left);
+    newNode->right = copySubTree(node->right);
+
+    return newNode;
+}
+
+template <typename T>
+void BST<T>::deleteSubTree(BSTNode<T>* node) {
+    if (node == nullptr)
+        return;
+    deleteSubTree(node->left);
+    deleteSubTree(node->right);
+
+    delete node;
 }
