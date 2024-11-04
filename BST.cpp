@@ -184,6 +184,7 @@ void BST<T>::remove(T value) {
             BSTNode<T>* successor = current->right;
             BSTNode<T>* successorParent = nullptr;
 
+            // iterates through to find successor
             while (successor->left != nullptr) {
                 successorParent = successor;
                 successor = successor->left;
@@ -192,16 +193,18 @@ void BST<T>::remove(T value) {
             if (successorParent != nullptr){
                 successorParent->left = successor->right;
             }else {
-                current->right = successor->right;
+                current->right = successor->right; // replace right child of node to be deleted with successor right child
             }
+            // replace successor right child with node to be deleted right child
             successor->right = current->right;
 
+            // replace node to be deleted with successor
             if (previous->left == current) {
                 previous->left = successor;
             }else {
                 previous->right = successor;
             }
-            successor->left = current->left;
+            successor->left = current->left; // replace successor left child with deleted node left child
 
             delete(current);
         }
