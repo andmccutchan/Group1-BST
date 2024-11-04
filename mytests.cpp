@@ -25,11 +25,23 @@ void testBST() {
     bst.printInOrderTraversal();
     cout << endl;
 
+    cout << "Deleting 1" << endl;
+    bst.remove(1);
+
+    cout << "New print In-order traversal: ";
+    bst.printInOrderTraversal();
+    cout << endl;
+
+    cout << "Deleting 9" << endl;
+    bst.remove(9);
+
+    cout << "New print In-order traversal: ";
+    bst.printInOrderTraversal();
+    cout << endl;
+
     cout << "Min of tree: " << bst.treeMin()->data << endl;
     cout << "Max of tree: " << bst.treeMax()->data << endl;
 
     cout << "Searching for 4 in tree: " << bst.search(4)->data << endl;
-
-
 
 }

@@ -132,8 +132,80 @@ BSTNode<T>* BST<T>::insert(T value) {
 //================================================
 template <class T>
 void BST<T>::remove(T value) {
-    
+    BSTNode<T>* current = root;
+    BSTNode<T>* previous = nullptr;
+
+    // iterate through and search for given value
+    while (current != nullptr && current->data != value) {
+        previous = current;
+        if (value < current->data) {
+            current = current->left;
+        }if (value > current->data) {
+            current = current->right;
+        }
+    }
+    // CASE 1 -- VALUE NOT FOUND
+    if (current == nullptr) {
+        cout << "Value not found in tree";
+    }
+    // CASE 2 -- NODE HAS NO CHILDREN
+    if (current->left == nullptr && current->right == nullptr) {
+        // check if value is root
+        if (root == current) {
+        root = nullptr;
+        }if (previous->left == current) {
+            previous->left = nullptr;
+       }else {
+        previous->right = nullptr;
+       }
+        delete(current);
+    }
+    // CASE 3 -- NODE HAS ONE CHILD
+    if (current->left == nullptr || current->right == nullptr) {
+        BSTNode<T>* child = nullptr;
+        if (current->left == nullptr) {
+            child = current->right;
+        }else {
+            child = current->left;
+        }
+        // check if current is root
+        if (previous == nullptr) {
+            root = child;
+        }if (previous->left == current) {
+            previous->left = child;
+        }else {
+            previous->right = child;
+        }
+        delete(current);
+    }
+    // CASE 4 -- NODE HAS TWO CHILDREN
+    if (current->left != nullptr && current->right != nullptr) {
+        BSTNode<T>* successor = current->right;
+        BSTNode<T>* successorParent = nullptr;
+
+        while (successor->left != nullptr) {
+            successorParent = successor;
+            successor = successor->left;
+        }
+         // checks if successor is right child of node to be deleted
+        if (successorParent != nullptr){
+            successorParent->left = successor->right;
+        }else {
+            current->right = successor->right;
+        }
+        successor->right = current->right;
+
+        if (previous->left == current) {
+            previous->left = successor;
+        }else {
+            previous->right = successor;
+        }
+        successor->left = current->left;
+
+        delete(current);
+    }
 }
+
 
 //================================================
 // SEARCH
