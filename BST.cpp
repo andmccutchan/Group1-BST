@@ -148,9 +148,8 @@ void BST<T>::remove(T value) {
     if (current == nullptr) {
         cout << "Value not found in tree" << endl;
         delete(previous);
-    }
-    // CASE 2 -- NODE HAS NO CHILDREN
-    else {
+    }else {
+        // CASE 2 -- NODE HAS NO CHILDREN
         if (current->left == nullptr && current->right == nullptr) {
             // check if value is root
             if (root == current) {
