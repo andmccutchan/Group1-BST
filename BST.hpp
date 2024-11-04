@@ -1,22 +1,24 @@
-#include <iostream>
-
-using namespace std;
-
 #ifndef BST_HPP
 #define BST_HPP
 
-template <class T>
-class BST
-{
-private:
-    struct Node
-    {
-        T value;
-        Node* left;
-        Node* right;
-    };
+#include <iostream>
+#include "BSTNode.hpp"
+using namespace std;
 
+template <class T>
+class BST {
+private:
+    BSTNode<T>* root;
+    long nodeCount;
+
+    void deleteSubTree(BSTNode<T>* node);       //helper function to delete nodes
+    BSTNode<T>* copySubTree(const BSTNode<T>* node);        //helper function for copying nodes of a tree
 public:
+                BST();
+                BST(const BST<T>& other);
+                ~BST();
+    BST<T>&     operator=(const BST<T>& other);
+
     void        transplant(BSTNode<T> *oldNode, BSTNode<T> *newNode);
     bool        isEmpty() const;
     long        size() const;
