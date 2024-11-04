@@ -39,6 +39,9 @@ void testBST() {
     bst.printInOrderTraversal();
     cout << endl;
 
+    cout << "Deleting 10 (not in tree)" << endl;
+    bst.remove(10);
+
     cout << "Min of tree: " << bst.treeMin()->data << endl;
     cout << "Max of tree: " << bst.treeMax()->data << endl;
 
