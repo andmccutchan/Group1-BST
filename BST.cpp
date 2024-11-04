@@ -156,9 +156,9 @@ void BST<T>::remove(T value) {
             root = nullptr;
             }if (previous->left == current) {
                 previous->left = nullptr;
-        }else {
+            }else {
             previous->right = nullptr;
-        }
+            }
             delete(current);
         }
         // CASE 3 -- NODE HAS ONE CHILD
