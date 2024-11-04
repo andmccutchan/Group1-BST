@@ -5,7 +5,7 @@
 using namespace std;
 
 template <class T>
-class RBTreeNode {
+class RBTree {
 public:
     T data;
     RBTreeNode<T>* left;
