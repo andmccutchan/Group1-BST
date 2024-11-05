@@ -1,4 +1,5 @@
 #include "BST.hpp"
+#include "customexceptions.hpp"
 
 //================================================
 // DEFAULT CONSTRUCTOR
@@ -18,6 +19,10 @@ BST<T>::BST(const BST<T>& other) {
     if (other.root != nullptr) {
         root = copySubTree(other.root); 
         nodeCount = other.nodeCount;
+    }
+    else {
+        root = nullptr;
+        nodeCount = 0;
     }
 }
 
@@ -50,8 +55,10 @@ BST<T>& BST<T>::operator=(const BST<T>& other) {
 template <class T>
 void BST<T>::transplant(BSTNode<T> *oldNode, BSTNode<T> *newNode) {
     if (oldNode == root) {
-        root = newNode;
-    } 
+        root = newNode;  
+        return;
+    }
+
     BSTNode<T>* parent = nullptr;
     BSTNode<T>* current = root;
 
@@ -59,22 +66,15 @@ void BST<T>::transplant(BSTNode<T> *oldNode, BSTNode<T> *newNode) {
         parent = current;
         if (oldNode->data < current->data) {
             current = current->left;
-        } 
-        else {
+        } else {
             current = current->right;
         }
     }
 
     if (oldNode == parent->left) {
         parent->left = newNode;
-    }
-    else {
+    } else {
         parent->right = newNode;
-    }
-
-    if (newNode != nullptr) {
-        newNode->left = oldNode->left;
-        newNode->right = oldNode->right;
     }
 }
 
@@ -100,7 +100,7 @@ long BST<T>::size() const {
 template <class T>
 BSTNode<T>* BST<T>::insert(T value) {
     BSTNode<T>* newNode = new BSTNode<T>(value);
-
+    nodeCount++;
     if (root == nullptr) {
         root = newNode;
         return newNode;
@@ -123,7 +123,6 @@ BSTNode<T>* BST<T>::insert(T value) {
     } else {
         parent->right = newNode;
     }
-    nodeCount++;
     return newNode;
 }
 
@@ -132,7 +131,35 @@ BSTNode<T>* BST<T>::insert(T value) {
 //================================================
 template <class T>
 void BST<T>::remove(T value) {
-    
+    if (root == nullptr) {
+        throw empty_tree_exception();
+    }
+    BSTNode<T>* node = search(value);
+
+    if (node == nullptr) {
+        throw value_not_in_tree_exception();
+    }
+
+    if (node->left == nullptr) { 
+        transplant(node, node->right);
+    } 
+    else if (node->right == nullptr) {
+        transplant(node, node->left);
+    } 
+    else {
+        BSTNode<T>* successor = node->right->treeMin();
+
+        if (successor != node->right) {
+            transplant(successor, successor->right);
+            successor->right = node->right;
+        }
+
+        transplant(node, successor);
+        successor->left = node->left;
+    }
+
+    nodeCount--;
+    delete node;
 }
 
 //================================================
@@ -153,7 +180,6 @@ BSTNode<T>* BST<T>::search(T value) const {
         }
     }
     return nullptr;
-    
 }
 
 //================================================
@@ -161,6 +187,9 @@ BSTNode<T>* BST<T>::search(T value) const {
 //================================================
 template <class T>
 BSTNode<T>* BST<T>::treeMin() const {
+    if (root == nullptr) {
+        throw empty_tree_exception();
+    }
     BSTNode<T>* current = root;
     while (root && current->left != nullptr) {
         current = current->left;
@@ -173,6 +202,9 @@ BSTNode<T>* BST<T>::treeMin() const {
 //================================================
 template <class T>
 BSTNode<T>* BST<T>::treeMax() const {
+    if (root == nullptr) {
+        throw empty_tree_exception();
+    }
     BSTNode<T>* current = root;
     while (root && current->right != nullptr) {
         current = current->right;
