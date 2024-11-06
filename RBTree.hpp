@@ -21,6 +21,8 @@ public:
     RBTree<T>&      operator=(const RBTree<T>& other);
 
     void            transplant(RBTreeNode<T> *oldNode, RBTreeNode<T> *newNode);
+    void            leftRotate(RBTreeNode<T> *x);
+    void            rightRotate(RBTreeNode<T> *x);
     bool            isEmpty() const;
     long            size() const;
     RBTreeNode<T>*  insert(T value);
