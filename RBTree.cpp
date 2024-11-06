@@ -59,7 +59,112 @@ Returns:
 =================================================*/
 template <typename T>
 void RBTree<T>::transplant(RBTreeNode<T> *oldNode, RBTreeNode<T> *newNode){
+    if(oldNode == root){
+        root = newNode;
+         return
+    }
 
+    RBTreeNode<T>* parent = nullptr;
+    RBTreeNode<T>* grandparent = nullptr;
+    RBTreeNode<T>* uncle = nullptr;
+    RBTreeNode<T>* current = root;
+
+    while(newNode->color == false && newNode->parent->color == false){
+        parent = newNode -> parent;
+        grandparent = parent -> parent;
+
+        if(parent == grandparent -> left){
+            uncle = grandparent -> right;
+
+            if(uncle != nullptr && uncle->color == false){
+                grandparent -> color = false;
+                parent -> color = true;
+                uncle -> color = true;
+                newNode = grandparent;
+            }
+            else {
+                if (newNode == parent->right){
+                    newNode = parent;
+                    leftRotate(newNode);
+                }
+
+                parent->color = true;
+                grandparent->color = false;
+                rightRotate(grandparent);
+            }
+            else{
+                uncle = grandparent -> left;
+                if(uncle != nullptr && uncle->color == false){
+                grandparent -> color = false;
+                parent -> color = true;
+                uncle -> color = true;
+                newNode = grandparent;
+            }
+            else {
+                if (newNode == parent->left){
+                    newNode = parent;
+                    rightRotate(newNode);
+                }
+
+                parent->color = true;
+                grandparent->color = false;
+                leftRotate(grandparent);
+            }
+        }
+    }
+    root -> color = true;
+}
+
+/*=================================================
+Left Rotate:
+Parameters:
+Returns:
+=================================================*/
+void RBTree<T>::leftRotate(RBTreeNode<T> *x){
+    RBTreeNode<T>* current = x -> right;
+    x -> right = current -> left;
+
+    if (current->left != nullptr){
+        x = current -> left -> parent;
+    }
+    current -> left = x;
+    if (x == root) {
+        root = current;
+    }
+    else if(x == parent->left){
+        x = current;
+    }
+    else (x == parent->right){
+        x = current;
+        current -> left = x;
+        parent = y;
+    }
+}
+
+/*=================================================
+Right Rotate:
+Parameters:
+Returns:
+=================================================*/
+void RBTree<T>::rightRotate(RBTreeNode<T> *x){
+    RBTreeNode<T>* current = x -> left;
+    x -> left = current -> right;
+
+    if (current->right != nullptr){
+        x = current -> right -> parent;
+    }
+    current -> right = x;
+    if (x == root) {
+        root = current;
+    }
+    else if(x == parent->right){
+        x = current;
+    }
+    else (x == parent->left){
+        x = current;
+        current -> right = x;
+        parent = y;
+    }
 }
 
 /*=================================================
@@ -89,7 +194,35 @@ Returns:
 =================================================*/
 template <typename T>
 RBTreeNode<T>* RBTree<T>::insert(T value){
+    RBTreeNode<T>* newNode = new RBTreeNode<T>(value);
+    newNode -> color = false;
+    nodeCount++;
+    if (root == nullptr){
+        root = newNode;
+        root -> color = true;
+        return newNode;
+    }
 
+    RBTreeNode<T>* current = root;
+    RBTreeNode<T>* parent = nullptr;
+    while (current != nullptr){
+        parent = current;
+        if (value < current->data){
+            current = current -> left;
+        }
+        else {
+            current = current -> right;
+        }
+    }
+
+    if (value <= parent->data){
+        parent->left = newNode;
+    }
+    else{
+        parent->right = newNode;
+    }
+    transplant(root, newNode);
+    return newNode;
 }
 
 /*=================================================
@@ -109,7 +242,19 @@ Returns:
 =================================================*/
 template <typename T>
 RBTreeNode<T>* RBTree<T>::search(T value) const{
-
+    RBTreeNode<T>* current = root;
+    while (current != nullptr){
+        if (current->data == value){
+            return current;
+        }
+        else if (value < current->data){
+            current = current -> left;
+        }
+        else {
+            current = current -> right;
+        }
+    }
+    return nullptr;
 }
 
 /*=================================================
