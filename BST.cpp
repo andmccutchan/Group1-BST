@@ -132,83 +132,29 @@ BSTNode<T>* BST<T>::insert(T value) {
 //================================================
 template <class T>
 void BST<T>::remove(T value) {
-    BSTNode<T>* current = root;
-    BSTNode<T>* previous = nullptr;
+    BSTNode<T>* current = search(value);
 
-    // iterate through and search for given value
-    while (current != nullptr && current->data != value) {
-        previous = current;
-        if (value < current->data) {
-            current = current->left;
-        }else {
-            current = current->right;
-        }
-    }
-    // CASE 1 -- VALUE NOT FOUND
+    // CASE -- VALUE NOT FOUND
     if (current == nullptr) {
-        cout << "Value not found in tree" << endl;
-        delete(previous);
-    }else {
-        // CASE 2 -- NODE HAS NO CHILDREN
-        if (current->left == nullptr && current->right == nullptr) {
-            // check if value is root
-            if (root == current) {
-            root = nullptr;
-            }if (previous->left == current) {
-                previous->left = nullptr;
-            }else {
-            previous->right = nullptr;
-            }
-            delete(current);
-        }
-        // CASE 3 -- NODE HAS ONE CHILD
-        if (current->left == nullptr || current->right == nullptr) {
-            BSTNode<T>* child = nullptr;
-            if (current->left == nullptr) {
-                child = current->right;
-            }else {
-                child = current->left;
-            }
-            // check if current is root
-            if (previous == nullptr) {
-                root = child;
-            }if (previous->left == current) {
-                previous->left = child;
-            }else {
-                previous->right = child;
-            }
-            delete(current);
-        }
-        // CASE 4 -- NODE HAS TWO CHILDREN
-        if (current->left != nullptr && current->right != nullptr) {
-            BSTNode<T>* successor = current->right;
-            BSTNode<T>* successorParent = nullptr;
-
-            // iterates through to find successor
-            while (successor->left != nullptr) {
-                successorParent = successor;
-                successor = successor->left;
-            }
-            // checks if successor is right child of node to be deleted
-            if (successorParent != nullptr){
-                successorParent->left = successor->right;
-            }else {
-                current->right = successor->right; // replace right child of node to be deleted with successor right child
-            }
-            // replace successor right child with node to be deleted right child
-            successor->right = current->right;
-
-            // replace node to be deleted with successor
-            if (previous->left == current) {
-                previous->left = successor;
-            }else {
-                previous->right = successor;
-            }
-            successor->left = current->left; // replace successor left child with deleted node left child
-
-            delete(current);
-        }
+        throw runtime_error("Value not found in tree");
     }
+
+    if (current->left == nullptr) {
+        transplant(current, current->right);
+    }else if (current->right == nullptr) {
+        transplant(current, current->left);
+    }else {
+        BSTNode<T>* successor = current->right->treeMin();
+        if (successor != current->right) {
+            transplant(successor, successor->right);
+            successor->right = current->right;
+            successor->right = successor;
+        }
+        transplant(current, successor);
+        successor->left = current->left;
+        successor->left= successor;
+    }
+    delete current;
 }
 
 
