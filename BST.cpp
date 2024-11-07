@@ -20,6 +20,10 @@ BST<T>::BST(const BST<T>& other) {
         root = copySubTree(other.root); 
         nodeCount = other.nodeCount;
     }
+    else {
+        root = nullptr;
+        nodeCount = 0;
+    }
 }
 
 
@@ -51,8 +55,10 @@ BST<T>& BST<T>::operator=(const BST<T>& other) {
 template <class T>
 void BST<T>::transplant(BSTNode<T> *oldNode, BSTNode<T> *newNode) {
     if (oldNode == root) {
-        root = newNode;
-    } 
+        root = newNode;  
+        return;
+    }
+
     BSTNode<T>* parent = nullptr;
     BSTNode<T>* current = root;
 
@@ -60,22 +66,15 @@ void BST<T>::transplant(BSTNode<T> *oldNode, BSTNode<T> *newNode) {
         parent = current;
         if (oldNode->data < current->data) {
             current = current->left;
-        } 
-        else {
+        } else {
             current = current->right;
         }
     }
 
     if (oldNode == parent->left) {
         parent->left = newNode;
-    }
-    else {
+    } else {
         parent->right = newNode;
-    }
-
-    if (newNode != nullptr) {
-        newNode->left = oldNode->left;
-        newNode->right = oldNode->right;
     }
 }
 
@@ -101,7 +100,7 @@ long BST<T>::size() const {
 template <class T>
 BSTNode<T>* BST<T>::insert(T value) {
     BSTNode<T>* newNode = new BSTNode<T>(value);
-
+    nodeCount++;
     if (root == nullptr) {
         root = newNode;
         return newNode;
@@ -124,7 +123,6 @@ BSTNode<T>* BST<T>::insert(T value) {
     } else {
         parent->right = newNode;
     }
-    nodeCount++;
     return newNode;
 }
 
@@ -133,10 +131,18 @@ BSTNode<T>* BST<T>::insert(T value) {
 //================================================
 template <class T>
 void BST<T>::remove(T value) {
-    BSTNode<T>* current = search(value);
+    if (root == nullptr) {
+       try {
+            throw custom_exceptions("Tree is empty");
+        }
+        
+        catch (const custom_exceptions& e) {
+            cout << "Caught an exception: " << e.what() << endl;
+        }
+    }
+    BSTNode<T>* node = search(value);
 
-    // CASE -- VALUE NOT FOUND
-    if (current == nullptr) {
+    if (node == nullptr) {
         try {
             throw custom_exceptions("Value not found in tree");
         }
@@ -144,26 +150,30 @@ void BST<T>::remove(T value) {
         catch (const custom_exceptions& e) {
             cout << "Caught an exception: " << e.what() << endl;
         }
+        delete(node);
     }
 
-    if (current->left == nullptr) {
-        transplant(current, current->right);
-    }else if (current->right == nullptr) {
-        transplant(current, current->left);
-    }else {
-        BSTNode<T>* successor = current->right->treeMin();
-        if (successor != current->right) {
+    if (node->left == nullptr) { 
+        transplant(node, node->right);
+    } 
+    else if (node->right == nullptr) {
+        transplant(node, node->left);
+    } 
+    else {
+        BSTNode<T>* successor = node->right->treeMin();
+
+        if (successor != node->right) {
             transplant(successor, successor->right);
-            successor->right = current->right;
-            successor->right = successor;
+            successor->right = node->right;
         }
-        transplant(current, successor);
-        successor->left = current->left;
-        successor->left= successor;
-    }
-    delete current;
-}
 
+        transplant(node, successor);
+        successor->left = node->left;
+    }
+
+    nodeCount--;
+    delete node;
+}
 
 //================================================
 // SEARCH
@@ -183,7 +193,6 @@ BSTNode<T>* BST<T>::search(T value) const {
         }
     }
     return nullptr;
-    
 }
 
 //================================================
@@ -191,6 +200,15 @@ BSTNode<T>* BST<T>::search(T value) const {
 //================================================
 template <class T>
 BSTNode<T>* BST<T>::treeMin() const {
+    if (root == nullptr) {
+        try {
+            throw custom_exceptions("Tree is empty");
+        }
+        
+        catch (const custom_exceptions& e) {
+            cout << "Caught an exception: " << e.what() << endl;
+        }
+    }
     BSTNode<T>* current = root;
     while (root && current->left != nullptr) {
         current = current->left;
@@ -203,6 +221,15 @@ BSTNode<T>* BST<T>::treeMin() const {
 //================================================
 template <class T>
 BSTNode<T>* BST<T>::treeMax() const {
+    if (root == nullptr) {
+        try {
+            throw custom_exceptions("Tree is empty");
+        }
+        
+        catch (const custom_exceptions& e) {
+            cout << "Caught an exception: " << e.what() << endl;
+        }
+    }
     BSTNode<T>* current = root;
     while (root && current->right != nullptr) {
         current = current->right;

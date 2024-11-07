@@ -35,7 +35,7 @@ void testBST() {
 
     cout << "Removing..." << endl;
     cout << bst.size() << endl;
-    bst.remove(19);
+    bst.remove(20);
     cout << bst.size() << endl;
     bst.remove(18);
     cout << bst.size() << endl;
