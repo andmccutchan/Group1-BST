@@ -1,12 +1,16 @@
 #include <iostream>
 #include "BST.cpp"
 #include "BSTNode.cpp"
+#include "RBTree.cpp"
+#include "RBTreeNode.cpp"
 using namespace std;
 
 void testBST();
+void testRBT();
 
 int main(void){
-    testBST();
+    // testBST();
+    testRBT();
     return 0;
 }
 
@@ -58,11 +62,31 @@ void testBST() {
     // cout << endl;
     
 
-    cout << "Min of tree: " << bst.treeMin()->data << endl;
-    cout << "Max of tree: " << bst.treeMax()->data << endl;
+    // cout << "Min of tree: " << bst.treeMin()->data << endl;
+    // cout << "Max of tree: " << bst.treeMax()->data << endl;
 
     // cout << "Searching for 4 in tree: " << bst.search(4)->data << endl;
 
 
+
+}
+
+void testRBT() {
+    RBTree<int> rbt;
+
+    RBTreeNode<int>* root = rbt.insert(14);
+    RBTreeNode<int>* one = rbt.insert(2);
+    RBTreeNode<int>* two = rbt.insert(9);
+    RBTreeNode<int>* three = rbt.insert(17);
+    rbt.printInOrderTraversal();
+    cout << endl;
+
+    cout << "Colors:" << endl;
+    cout << root->color << endl;
+    cout << one->color << endl;
+    cout << two->color << endl;
+    cout << three->color << endl;
+    rbt.printPreOrderTraversal();
+    cout << endl;
 
 }
