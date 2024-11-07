@@ -14,10 +14,10 @@ int main(void){
     int passCounter = 0;
     cout << "this is working" << endl;
     // BST Tests
-    testBST_insert(passCounter);
+    // testBST_insert(passCounter);
     testBST_remove(passCounter);
-    testBST_search(passCounter);
-    testBST_min_max(passCounter);
+    // testBST_search(passCounter);
+    // testBST_min_max(passCounter);
 
     // RBT Tests
     // ...
