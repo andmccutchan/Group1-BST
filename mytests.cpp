@@ -5,88 +5,136 @@
 #include "RBTreeNode.cpp"
 using namespace std;
 
-void testBST();
-void testRBT();
+void testBST_insert(int &passCounter);
+void testBST_remove(int &passCounter);
+void testBST_search(int &passCounter);
+void testBST_min_max(int &passCounter);
 
 int main(void){
-    // testBST();
-    testRBT();
+    int passCounter = 0;
+
+    // BST Tests
+    testBST_insert(passCounter);
+    testBST_remove(passCounter);
+    testBST_search(passCounter);
+    testBST_min_max(passCounter);
+
+    // RBT Tests
+    // ...
+
+    cout << "Total tests passed: " << passCounter << endl;
+
     return 0;
 }
 
-void testBST() {
-    BST<int> bst;
-    cout << "Size of bst: " << bst.size() << endl;
-    cout << "Inserting 7, 5, 18, 1, 4, 9, 12" << endl;
-    bst.insert(7);
-    bst.insert(5);
-    bst.insert(18);
-    bst.insert(1);
-    bst.insert(4);
-    bst.insert(9);
-    bst.insert(12);
-    bst.insert(19);
-
-    cout << "Size of bst: " << bst.size() << endl;
-
-    cout << "Print In-order traversal: ";
-    bst.printInOrderTraversal();
+void testBST_insert(int &passCounter) {
+    cout << "TEST CODE FOR BST INSERTION" << endl;
+    cout << "===========================" << endl;
+    cout << "Inserting 5, 9, 2, 4, 7, 1, 10..." << endl;
+    BST<int> tree;
+    tree.insert(5);
+    tree.insert(9);
+    tree.insert(2);
+    tree.insert(4);
+    tree.insert(7);
+    tree.insert(1);
+    tree.insert(10);
+    cout << "Tree size: " << tree.size() << endl;
+    cout << "Pre-order traversal: "; 
+    tree.printPreOrderTraversal(); 
     cout << endl;
-
-    cout << "Removing..." << endl;
-    cout << bst.size() << endl;
-    bst.remove(19);
-    cout << bst.size() << endl;
-    bst.remove(18);
-    cout << bst.size() << endl;
-    bst.remove(12);
-    cout << bst.size() << endl;
-    bst.remove(9);
-    cout << bst.size() << endl;
-    bst.remove(7);
-    cout << bst.size() << endl;
-    bst.remove(5);
-    cout << bst.size() << endl;
-    bst.remove(4);
-    cout << bst.size() << endl;
-    bst.remove(1);
-    cout << bst.size() << endl;
-    cout << "Print In-order traversal: ";
-    bst.printInOrderTraversal();
+    cout << "In-order traversal: "; 
+    tree.printInOrderTraversal(); 
     cout << endl;
-    // cout << "Print Pre-order traversal: ";
-    // bst.printPreOrderTraversal();
-    // cout << endl;
-    // cout << "Print Post-order traversal: ";
-    // bst.printPostOrderTraversal();
-    // cout << endl;
-    
-
-    // cout << "Min of tree: " << bst.treeMin()->data << endl;
-    // cout << "Max of tree: " << bst.treeMax()->data << endl;
-
-    // cout << "Searching for 4 in tree: " << bst.search(4)->data << endl;
-
-
-
+    cout << "Post-order traversal: "; 
+    tree.printPostOrderTraversal(); 
+    cout << endl;
+    cout << "===========================" << endl;
+    cout << endl;
+    passCounter++;
 }
 
-void testRBT() {
-    RBTree<int> rbt;
-
-    RBTreeNode<int>* root = rbt.insert(14);
-    RBTreeNode<int>* one = rbt.insert(2);
-    RBTreeNode<int>* two = rbt.insert(9);
-    RBTreeNode<int>* three = rbt.insert(17);
-    rbt.printInOrderTraversal();
+void testBST_remove(int &passCounter) {
+    cout << "TEST CODE FOR BST REMOVE" << endl;
+    cout << "===========================" << endl;
+    cout << "Inserting 5, 9, 2, 4, 7, 1, 10..." << endl;
+    BST<int> tree;
+    tree.insert(5);
+    tree.insert(9);
+    tree.insert(2);
+    tree.insert(4);
+    tree.insert(7);
+    tree.insert(1);
+    tree.insert(10);
+    cout << "Tree size: " << tree.size() << endl;
+    cout << "Pre-order traversal: "; 
+    tree.printPreOrderTraversal(); 
     cout << endl;
-
-    cout << "Colors:" << endl;
-    cout << root->color << endl;
-    cout << one->color << endl;
-    cout << two->color << endl;
-    cout << three->color << endl;
-    rbt.printPreOrderTraversal();
+    cout << "In-order traversal: "; 
+    tree.printInOrderTraversal(); 
     cout << endl;
-
+    cout << "Post-order traversal: "; 
+    tree.printPostOrderTraversal(); 
+    cout << endl;
+    cout << "Removing 4..." << endl;
+    tree.remove(4);
+    cout << "Tree size: " << tree.size() << endl;
+    cout << "Pre-order traversal: "; 
+    tree.printPreOrderTraversal(); 
+    cout << endl;
+    cout << "In-order traversal: "; 
+    tree.printInOrderTraversal(); 
+    cout << endl;
+    cout << "Post-order traversal: "; 
+    tree.printPostOrderTraversal(); 
+    cout << endl;
+    cout << "===========================" << endl;
+    cout << endl;
+    passCounter++;
 }
+
+void testBST_search(int &passCounter) {
+    cout << "TEST CODE FOR BST SEARCH" << endl;
+    cout << "===========================" << endl;
+    cout << "Inserting 5, 9, 2, 4, 7, 1, 10..." << endl;
+    BST<int> tree;
+    tree.insert(5);
+    tree.insert(9);
+    tree.insert(2);
+    tree.insert(4);
+    tree.insert(7);
+    tree.insert(1);
+    tree.insert(10);
+    cout << "Searching for 7: ";
+    (tree.search(7) != nullptr) ? cout << "Found!" << endl :  cout << "Not found :(" << endl;
+    cout << "Searching for 6: ";
+    (tree.search(6) != nullptr) ? cout << "Found!" << endl :  cout << "Not found :(" << endl;
+
+    cout << "===========================" << endl;
+    cout << endl;
+    passCounter++;
+}
+
+void testBST_min_max(int &passCounter) {
+    cout << "TEST CODE FOR BST MIN/MAX" << endl;
+    cout << "===========================" << endl;
+    cout << "Inserting 5, 9, 2, 4, 7, 1, 10..." << endl;
+    BST<int> tree;
+    tree.insert(5);
+    tree.insert(9);
+    tree.insert(2);
+    tree.insert(4);
+    tree.insert(7);
+    tree.insert(1);
+    tree.insert(10);
+    BSTNode<int>* min = tree.treeMin();
+    cout << "Tree Min: " << min->data << endl;
+    BSTNode<int>* max = tree.treeMax();
+    cout << "Tree Max: " << max->data << endl;
+
+    cout << "===========================" << endl;
+    cout << endl;
+    passCounter++;
+}
+
+
