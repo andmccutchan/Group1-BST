@@ -1,4 +1,5 @@
 #include "BST.hpp"
+#include "customexceptions.hpp"
 
 //================================================
 // DEFAULT CONSTRUCTOR
@@ -136,7 +137,13 @@ void BST<T>::remove(T value) {
 
     // CASE -- VALUE NOT FOUND
     if (current == nullptr) {
-        throw runtime_error("Value not found in tree");
+        try {
+            throw custom_exceptions("Value not found in tree");
+        }
+        
+        catch (const custom_exceptions& e) {
+            cout << "Caught an exception: " << e.what() << endl;
+        }
     }
 
     if (current->left == nullptr) {

@@ -5,21 +5,24 @@
 using namespace std;
 
 template <class T>
-class RBTree {
-public:
-    T data;
-    RBTreeNode<T>* left;
-    RBTreeNode<T>* right;
+class RBTreeNode {
+	public:
+        T data;
+        RBTreeNode<T>* left;
+        RBTreeNode<T>* right;
+        bool color;                             //Red = True, Black = False
+        RBTreeNode<T>* parent;
 
-                RBTreeNode(const T& value);       
-                RBTreeNode(const T& value, RBTreeNode<T>* left, RBTreeNode<T>* right);                                     
-                RBTreeNode(const RBTreeNode<T>& other);      
-    RBTreeNode<T>& operator=(const RBTreeNode<T>& other); 
-         
-    RBTreeNode<T>* treeMin();
-    RBTreeNode<T>* treeMax();
-    void        printPreOrderTraversal() const;
-    void        printInOrderTraversal() const;
-    void        printPostOrderTraversal() const;
+                    	RBTreeNode(const T& value);
+                    	RBTreeNode(const T& value, RBTreeNode<T>* left, RBTreeNode<T>* right, RBTreeNode<T>* parent);
+                    	RBTreeNode(const RBTreeNode<T>& other);
+        RBTreeNode<T>& operator=(const RBTreeNode<T>& other);
+
+        RBTreeNode<T>* 	treeMin();
+        RBTreeNode<T>* 	treeMax();
+        void			printPreOrderTraversal() const;
+        void       		printInOrderTraversal() const;
+        void        	printPostOrderTraversal() const;
 };
+
 #endif

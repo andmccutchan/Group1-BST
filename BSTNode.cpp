@@ -1,3 +1,4 @@
+
 #include "BSTNode.hpp"
 
 template <typename T>
@@ -23,11 +24,9 @@ BSTNode<T>::BSTNode(const BSTNode<T>& other) {
 
 template <typename T>
 BSTNode<T>& BSTNode<T>::operator=(const BSTNode<T>& other) {
-    if (this != &other) {
-        data = other.value;
-        left = other.left;
-        right = other.right;
-    }
+    data = other.value;
+    left = other.left;
+    right = other.right;
     return *this;
 }
 

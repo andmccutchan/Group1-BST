@@ -5,11 +5,12 @@ using namespace std;
 
 class custom_exceptions : public std::exception {
     private:
-    char * message;
+        const char* message;
 
     public:
-    custom_exceptions(char * msg) : message(msg) {}
-    char * what () {
-        return message;
-    }
+        custom_exceptions(const char* msg) : message(msg) {}
+
+        const char* what() const throw() {
+            return message;
+        }
 };
