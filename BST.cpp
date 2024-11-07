@@ -132,12 +132,12 @@ BSTNode<T>* BST<T>::insert(T value) {
 template <class T>
 void BST<T>::remove(T value) {
     if (root == nullptr) {
-        throw empty_tree_exception("Tree is empty");
+        throw empty_tree_exception();
     }
     BSTNode<T>* node = search(value);
 
     if (node == nullptr) {
-        throw value_not_in_tree_exception("Value not in tree");
+        throw value_not_in_tree_exception();
     }
 
     if (node->left == nullptr) { 
@@ -188,7 +188,7 @@ BSTNode<T>* BST<T>::search(T value) const {
 template <class T>
 BSTNode<T>* BST<T>::treeMin() const {
     if (root == nullptr) {
-        throw empty_tree_exception("Tree is empty");
+        throw empty_tree_exception();
     }
     BSTNode<T>* current = root;
     while (root && current->left != nullptr) {
@@ -203,7 +203,7 @@ BSTNode<T>* BST<T>::treeMin() const {
 template <class T>
 BSTNode<T>* BST<T>::treeMax() const {
     if (root == nullptr) {
-        throw empty_tree_exception("Tree is empty");
+        throw empty_tree_exception();
     }
     BSTNode<T>* current = root;
     while (root && current->right != nullptr) {

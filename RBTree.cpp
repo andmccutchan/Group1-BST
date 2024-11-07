@@ -226,11 +226,11 @@ Returns:
 template <typename T>
 void RBTree<T>::remove(T value){
     if (root == nullptr) {
-        throw empty_tree_exception("Tree is empty");
+        throw empty_tree_exception();
     }
     RBTreeNode<T>* removeNode = search(value);
     if (removeNode == nullptr) {
-        throw value_not_in_tree_exception("Value not in tree");
+        throw value_not_in_tree_exception();
     }
 
     RBTreeNode<T>* node = removeNode;
@@ -369,7 +369,7 @@ Returns:
 template <typename T>
 RBTreeNode<T>* RBTree<T>::treeMin() const{
     if (root == nullptr) {
-        throw empty_tree_exception("Tree is empty");
+        throw empty_tree_exception();
     }
     RBTreeNode<T>* track = root;
     while (root && track->left != nullptr){
@@ -386,7 +386,7 @@ Returns:
 template <typename T>
 RBTreeNode<T>* RBTree<T>::treeMax() const{
     if (root == nullptr) {
-        throw empty_tree_exception("Tree is empty");
+        throw empty_tree_exception();
     }
     RBTreeNode<T>* track = root;
     while (root && track->right != nullptr){
