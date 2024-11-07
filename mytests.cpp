@@ -12,7 +12,7 @@ void testBST_min_max(int &passCounter);
 
 int main(void){
     int passCounter = 0;
-
+    cout << "this is working" << endl;
     // BST Tests
     testBST_insert(passCounter);
     testBST_remove(passCounter);
