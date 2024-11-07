@@ -1,4 +1,5 @@
 #include "RBTree.hpp"
+#include "customexceptions.hpp"
 
 /*=================================================
 Default Constructor: Intializes an empty tree
@@ -224,9 +225,12 @@ Returns:
 =================================================*/
 template <typename T>
 void RBTree<T>::remove(T value){
+    if (root == nullptr) {
+        throw empty_tree_exception("Tree is empty");
+    }
     RBTreeNode<T>* removeNode = search(value);
     if (removeNode == nullptr) {
-        throw runtime_error("Value not in tree");
+        throw value_not_in_tree_exception("Value not in tree");
     }
 
     RBTreeNode<T>* node = removeNode;
@@ -364,6 +368,9 @@ Returns:
 =================================================*/
 template <typename T>
 RBTreeNode<T>* RBTree<T>::treeMin() const{
+    if (root == nullptr) {
+        throw empty_tree_exception("Tree is empty");
+    }
     RBTreeNode<T>* track = root;
     while (root && track->left != nullptr){
         track = track -> left;
@@ -378,6 +385,9 @@ Returns:
 =================================================*/
 template <typename T>
 RBTreeNode<T>* RBTree<T>::treeMax() const{
+    if (root == nullptr) {
+        throw empty_tree_exception("Tree is empty");
+    }
     RBTreeNode<T>* track = root;
     while (root && track->right != nullptr){
         track = track -> right;
