@@ -230,9 +230,9 @@ void testRBTree_search(int &passCounter){
     RBTree.insert(30);
 
     cout << "Search for the value 18..." << endl;
-    (RBTree.search(18) != nullptr) ? cout << "Found!" << endl : cout << "Not Found" <<
+    (RBTree.search(18) != nullptr) ? cout << "Found!" << endl : cout << "Not Found" << endl;
     cout << "Search for the value 5..." << endl;
-    (RBTree.search(5) != nullptr) ? cout << "Found!" << endl : cout << "Not Found" <<
+    (RBTree.search(5) != nullptr) ? cout << "Found!" << endl : cout << "Not Found" << endl;
 
     cout << "===========================" << endl;
     cout << endl;
