@@ -1,3 +1,11 @@
+//========================================================
+// BST.hpp
+// DATE: October 26th
+// AUTHORS: Andrew McCutchan, Liam Kaznelson, Esther Zhang
+// DESCRIPTION: Provides names of all members of the
+// BST class.
+//========================================================
+
 #ifndef BST_HPP
 #define BST_HPP
 

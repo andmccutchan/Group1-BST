@@ -1,3 +1,11 @@
+//========================================================
+// RBTreeNode.hpp
+// DATE: October 26th
+// AUTHORS: Andrew McCutchan, Liam Kaznelson, Esther Zhang
+// DESCRIPTION: Provides names of all members of the
+// RBTreeNode class.
+//========================================================
+
 #ifndef RBTREE_NODE_HPP
 #define RBTREE_NODE_HPP
 

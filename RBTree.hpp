@@ -1,3 +1,11 @@
+//========================================================
+// RBTree.cpp
+// DATE: October 26th
+// AUTHORS: Andrew McCutchan, Liam Kaznelson, Esther Zhang
+// DESCRIPTION: Provides names of all members of the
+// RBTree class.
+//========================================================
+
 #ifndef RBTREE_HPP
 #define RBTREE_HPP
 

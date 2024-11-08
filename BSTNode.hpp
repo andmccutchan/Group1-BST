@@ -1,3 +1,11 @@
+//========================================================
+// BSTNode.hpp
+// DATE: October 26th
+// AUTHORS: Andrew McCutchan, Liam Kaznelson, Esther Zhang
+// DESCRIPTION: Provides names of all members of the
+// BSTNode class.
+//========================================================
+
 #ifndef BST_NODE_HPP
 #define BST_NODE_HPP
 

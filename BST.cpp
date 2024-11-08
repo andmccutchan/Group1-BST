@@ -1,8 +1,20 @@
+//========================================================
+// BST.cpp
+// DATE: October 26th
+// AUTHORS: Andrew McCutchan, Liam Kaznelson, Esther Zhang
+// DESCRIPTION: Provides function definitions for all of
+// the methods contained within the BST class.
+//========================================================
+
 #include "BST.hpp"
 #include "customexceptions.hpp"
 
 //================================================
 // DEFAULT CONSTRUCTOR
+// PARAMETERS: None
+// DESCRIPTION: Initializes a value of the BST
+// class
+// RETURN: None
 //================================================
 template <typename T>
 BST<T>::BST() {
@@ -13,6 +25,9 @@ BST<T>::BST() {
 
 //================================================
 // COPY CONSTRUCTOR
+// PARAMETERS: const BST<T>& other
+// DESCRIPTION: Copies one BST value into another
+// RETURN: None
 //================================================
 template <typename T>
 BST<T>::BST(const BST<T>& other) {
@@ -29,6 +44,9 @@ BST<T>::BST(const BST<T>& other) {
 
 //================================================
 // DESTRUCTOR
+// PARAMETERS: None
+// DESCRIPTION: Deconstructs the BST value
+// RETURN: None
 //================================================
 template <typename T>
 BST<T>::~BST() {
@@ -40,6 +58,10 @@ BST<T>::~BST() {
 
 //================================================
 // ASSIGNMENT OPERATOR
+// PARAMETERS: const BST<T>& other
+// DESCRIPTION: Set the current BST equal to the
+// parameter BST value.
+// RETURN: *this
 //================================================
 template <typename T>
 BST<T>& BST<T>::operator=(const BST<T>& other) {
@@ -51,6 +73,12 @@ BST<T>& BST<T>::operator=(const BST<T>& other) {
 
 //================================================
 // TRANSPLANT
+// PARAMETERS: BSTNode<T> *oldNode, 
+// BSTNode<T> *newNode
+// DESCRIPTION: Transplants the oldNode parameter
+// into the newNode parameter, accounting for
+// any important cases.
+// RETURN: None
 //================================================
 template <class T>
 void BST<T>::transplant(BSTNode<T> *oldNode, BSTNode<T> *newNode) {
@@ -80,6 +108,10 @@ void BST<T>::transplant(BSTNode<T> *oldNode, BSTNode<T> *newNode) {
 
 //================================================
 // ISEMPTY
+// PARAMETERS: None
+// DESCRIPTION: Checks whether the current BST
+// is empty or not
+// RETURN: True or False
 //================================================
 template <class T>
 bool BST<T>::isEmpty() const {
@@ -88,6 +120,10 @@ bool BST<T>::isEmpty() const {
 
 //================================================
 // SIZE
+// PARAMETERS: None
+// DESCRIPTION: Returns the size of the current
+// BST
+// RETURN: nodeCount
 //================================================
 template <class T>
 long BST<T>::size() const {  
@@ -96,6 +132,10 @@ long BST<T>::size() const {
 
 //================================================
 // INSERT
+// PARAMETERS: T value
+// DESCRIPTION: Inserts the value parameter into
+// the current BST
+// RETURN: newNode
 //================================================
 template <class T>
 BSTNode<T>* BST<T>::insert(T value) {
@@ -128,6 +168,10 @@ BSTNode<T>* BST<T>::insert(T value) {
 
 //================================================
 // REMOVE
+// PARAMETERS: T value
+// DESCRIPTION: Removes the inputted value from
+// the current BST
+// RETURN: None
 //================================================
 template <class T>
 void BST<T>::remove(T value) {
@@ -164,6 +208,10 @@ void BST<T>::remove(T value) {
 
 //================================================
 // SEARCH
+// PARAMETERS: T value
+// DESCRIPTION: Searches for the value parameter
+// in the current BST
+// RETURN: Pointer of value parameter or nullptr
 //================================================
 template <class T> 
 BSTNode<T>* BST<T>::search(T value) const {
@@ -184,6 +232,10 @@ BSTNode<T>* BST<T>::search(T value) const {
 
 //================================================
 // TREEMIN
+// PARAMETERS: None
+// DESCRIPTION: Returns the smallest value in the
+// BST
+// RETURN: current
 //================================================
 template <class T>
 BSTNode<T>* BST<T>::treeMin() const {
@@ -199,6 +251,10 @@ BSTNode<T>* BST<T>::treeMin() const {
 
 //================================================
 // TREEMAX
+// PARAMETERS: None
+// DESCRIPTION: Returns the biggest value in the
+// BST
+// RETURN: None
 //================================================
 template <class T>
 BSTNode<T>* BST<T>::treeMax() const {
@@ -214,6 +270,10 @@ BSTNode<T>* BST<T>::treeMax() const {
 
 //================================================
 // PRINTPREORDERTRAVERSAL
+// PARAMETERS: None
+// DESCRIPTION: Print the BST's items using
+// preorder traversal
+// RETURN: None
 //================================================
 template <class T>
 void BST<T>::printPreOrderTraversal() const {
@@ -224,6 +284,10 @@ void BST<T>::printPreOrderTraversal() const {
 
 //================================================
 // PRINTINORDERTRAVERSAL
+// PARAMETERS: None
+// DESCRIPTION: Print the BST's items using
+// inorder traversal
+// RETURN: None
 //================================================
 template <class T>
 void BST<T>::printInOrderTraversal() const {
@@ -234,6 +298,10 @@ void BST<T>::printInOrderTraversal() const {
 
 //================================================
 // PRINTPOSTORDERTRAVERSAL
+// PARAMETERS: None
+// DESCRIPTION: Print the BST's items using
+// postorder traversal
+// RETURN: None
 //================================================
 template <class T>
 void BST<T>::printPostOrderTraversal() const {
@@ -242,7 +310,13 @@ void BST<T>::printPostOrderTraversal() const {
     }
 }
 
-
+//================================================
+// COPY SUBTREE
+// PARAMETERS: const BSTNode<T>* node
+// DESCRIPTION: Copies the inputted subtree
+// into the current BSTNode
+// RETURN: nullptr or newNode
+//================================================
 template <typename T>
 BSTNode<T>* BST<T>::copySubTree(const BSTNode<T>* node) {
     if (node == nullptr) {
@@ -257,6 +331,13 @@ BSTNode<T>* BST<T>::copySubTree(const BSTNode<T>* node) {
     return newNode;
 }
 
+//================================================
+// DELETE SUBTREE
+// PARAMETERS: BSTNode<T>* node
+// DESCRIPTION: Delete the inputted parameter
+// from the current BST
+// RETURN: None
+//================================================
 template <typename T>
 void BST<T>::deleteSubTree(BSTNode<T>* node) {
     if (node == nullptr) {
