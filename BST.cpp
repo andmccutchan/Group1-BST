@@ -132,25 +132,12 @@ BSTNode<T>* BST<T>::insert(T value) {
 template <class T>
 void BST<T>::remove(T value) {
     if (root == nullptr) {
-       try {
-            throw custom_exceptions("Tree is empty");
-        }
-        
-        catch (const custom_exceptions& e) {
-            cout << "Caught an exception: " << e.what() << endl;
-        }
+        throw empty_tree_exception();
     }
     BSTNode<T>* node = search(value);
 
     if (node == nullptr) {
-        try {
-            throw custom_exceptions("Value not found in tree");
-        }
-        
-        catch (const custom_exceptions& e) {
-            cout << "Caught an exception: " << e.what() << endl;
-        }
-        delete(node);
+        throw value_not_in_tree_exception();
     }
 
     if (node->left == nullptr) { 
@@ -201,16 +188,10 @@ BSTNode<T>* BST<T>::search(T value) const {
 template <class T>
 BSTNode<T>* BST<T>::treeMin() const {
     if (root == nullptr) {
-        try {
-            throw custom_exceptions("Tree is empty");
-        }
-        
-        catch (const custom_exceptions& e) {
-            cout << "Caught an exception: " << e.what() << endl;
-        }
+        throw empty_tree_exception();
     }
     BSTNode<T>* current = root;
-    while (root && current->left != nullptr) {
+    while (current->left != nullptr) {
         current = current->left;
     }
     return current;
@@ -222,16 +203,10 @@ BSTNode<T>* BST<T>::treeMin() const {
 template <class T>
 BSTNode<T>* BST<T>::treeMax() const {
     if (root == nullptr) {
-        try {
-            throw custom_exceptions("Tree is empty");
-        }
-        
-        catch (const custom_exceptions& e) {
-            cout << "Caught an exception: " << e.what() << endl;
-        }
+        throw empty_tree_exception();
     }
     BSTNode<T>* current = root;
-    while (root && current->right != nullptr) {
+    while (current->right != nullptr) {
         current = current->right;
     }
     return current;
@@ -270,8 +245,10 @@ void BST<T>::printPostOrderTraversal() const {
 
 template <typename T>
 BSTNode<T>* BST<T>::copySubTree(const BSTNode<T>* node) {
-    if (node == nullptr) return nullptr;
-
+    if (node == nullptr) {
+        return nullptr;
+    }
+    
     BSTNode<T>* newNode = new BSTNode<T>(node->data);
 
     newNode->left = copySubTree(node->left);
@@ -282,8 +259,9 @@ BSTNode<T>* BST<T>::copySubTree(const BSTNode<T>* node) {
 
 template <typename T>
 void BST<T>::deleteSubTree(BSTNode<T>* node) {
-    if (node == nullptr)
+    if (node == nullptr) {
         return;
+    }
     deleteSubTree(node->left);
     deleteSubTree(node->right);
 
