@@ -25,7 +25,7 @@ using namespace std;
 
 //     public:
 
-//         empty_tree_exception(const char * msg) : message(msg) {}
+//         empty_tree_exception(const char* msg) : message(msg) {}
 
 //         const char* what() const throw() {
 //             return message;

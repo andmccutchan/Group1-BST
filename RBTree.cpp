@@ -256,7 +256,9 @@ void RBTree<T>::remove(T value){
             node->right->parent = node;
         }
         else {
-            moveNode->parent = node;
+            if (moveNode != nullptr) {
+                moveNode->parent = node;
+            }   
         }
         transplant(removeNode, node);
         node->left = removeNode->left;
@@ -272,10 +274,13 @@ void RBTree<T>::remove(T value){
 
 template <class T>
 void RBTree<T>::deleteFixUp(RBTreeNode<T>* moveNode) {
-    while (moveNode != root && (moveNode == nullptr || moveNode->color == false)) {
+    if (moveNode == nullptr) {
+        return;
+    }
+    while (moveNode != root && (moveNode == nullptr || (moveNode->color == false && moveNode->parent != nullptr))) {
         if (moveNode == moveNode->parent->left) {
             RBTreeNode<T>* sibling = moveNode->parent->right;
-            if (sibling->color == true) {
+            if (sibling != nullptr && sibling->color == true) {
                 sibling->color = false;
                 moveNode->parent->color = true;
                 leftRotate(moveNode->parent);
@@ -306,7 +311,7 @@ void RBTree<T>::deleteFixUp(RBTreeNode<T>* moveNode) {
         }
         else {
             RBTreeNode<T>* sibling = moveNode->parent->left;
-            if (sibling->color == true) {
+            if (sibling != nullptr && sibling->color == true) {
                 sibling->color = false;
                 moveNode->parent->color = true;
                 rightRotate(moveNode->parent);
@@ -372,8 +377,8 @@ RBTreeNode<T>* RBTree<T>::treeMin() const{
         throw empty_tree_exception();
     }
     RBTreeNode<T>* track = root;
-    while (root && track->left != nullptr){
-        track = track -> left;
+    while (track->left != nullptr){
+        track = track->left;
     }
     return track;
 }
@@ -389,8 +394,8 @@ RBTreeNode<T>* RBTree<T>::treeMax() const{
         throw empty_tree_exception();
     }
     RBTreeNode<T>* track = root;
-    while (root && track->right != nullptr){
-        track = track -> right;
+    while (track->right != nullptr){
+        track = track->right;
     }
     return track;
 }

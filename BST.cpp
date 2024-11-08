@@ -191,7 +191,7 @@ BSTNode<T>* BST<T>::treeMin() const {
         throw empty_tree_exception();
     }
     BSTNode<T>* current = root;
-    while (root && current->left != nullptr) {
+    while (current->left != nullptr) {
         current = current->left;
     }
     return current;
@@ -206,7 +206,7 @@ BSTNode<T>* BST<T>::treeMax() const {
         throw empty_tree_exception();
     }
     BSTNode<T>* current = root;
-    while (root && current->right != nullptr) {
+    while (current->right != nullptr) {
         current = current->right;
     }
     return current;
